@@ -1,6 +1,9 @@
-passwords = nil
-File.open('inputs/input_day_02.txt', 'r') do |f|
-  passwords = f.readlines.map(&:chomp).map do |policy|
+# frozen_string_literal: true
+
+require './utils'
+
+def input_file
+  get_file('inputs/input_day_02.txt').map do |policy|
     splitted = policy.split(' ')
     {
       min: splitted[0].split('-')[0].to_i,
@@ -11,23 +14,28 @@ File.open('inputs/input_day_02.txt', 'r') do |f|
   end
 end
 
-return unless passwords
+def part_one(passwords)
+  total = 0
+  passwords.each do |password|
+    count = password[:password].count(password[:word])
+    total += 1 if count >= password[:min] && count <= password[:max]
+  end
 
-# puzzle 1
-total = 0
-passwords.each do |password|
-  count = password[:password].count(password[:word])
-  total += 1 if count >= password[:min] && count <= password[:max]
+  total
 end
-puts total
 
-# puzzle 2
-total = 0
-passwords.each do |password|
-  first = password[:min] - 1
-  second = password[:max] - 1
-  pass = password[:password]
-  total += 1 if (pass[first] == password[:word] && pass[second] != password[:word]) ||
-                (pass[first] != password[:word] && pass[second] == password[:word])
+def part_two(passwords)
+  total = 0
+  passwords.each do |password|
+    first = password[:password][password[:min] - 1]
+    second = password[:password][password[:max] - 1]
+    total += 1 if (first == password[:word] && second != password[:word]) ||
+                  (first != password[:word] && second == password[:word])
+  end
+
+  total
 end
-puts total
+
+passwords = input_file
+puts "Day 2 - Part 1 --> total: #{part_one(passwords)}"
+puts "Day 2 - Part 2 --> total: #{part_two(passwords)}"
