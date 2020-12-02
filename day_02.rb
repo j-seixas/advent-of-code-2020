@@ -19,5 +19,15 @@ passwords.each do |password|
   count = password[:password].count(password[:word])
   total += 1 if count >= password[:min] && count <= password[:max]
 end
+puts total
 
+# puzzle 2
+total = 0
+passwords.each do |password|
+  first = password[:min] - 1
+  second = password[:max] - 1
+  pass = password[:password]
+  total += 1 if (pass[first] == password[:word] && pass[second] != password[:word]) ||
+                (pass[first] != password[:word] && pass[second] == password[:word])
+end
 puts total
