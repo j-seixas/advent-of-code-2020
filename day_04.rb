@@ -20,7 +20,7 @@ def input_file(index = 0, result = [])
 end
 
 def validate_year(value, lower, higher)
-  !!(value =~ /[0-9]{4}/) && value.to_i >= lower && value.to_i <= higher
+  !!(value =~ /^[0-9]{4}$/) && value.to_i >= lower && value.to_i <= higher
 end
 
 def validate_eyr(value)
@@ -38,7 +38,7 @@ def validate_hgt(value)
 end
 
 def validate_hcl(value)
-  !!(value =~ /#[a-f0-9]{6}/)
+  !!(value =~ /^#[a-f0-9]{6}$/)
 end
 
 def validate_ecl(value)
@@ -46,7 +46,7 @@ def validate_ecl(value)
 end
 
 def validate_pid(value)
-  !!(value =~ /[0-9]{9}/)
+  !!(value =~ /^[0-9]{9}$/)
 end
 
 def part_one(input, ignore = nil)
@@ -61,8 +61,6 @@ def part_two(input, ignore = nil)
   count = 0
   input.each do |v|
     next unless (values - v.keys).empty?
-
-    # puts "#{validate_year(v['byr'], 1920, 2002)} && #{validate_year(v['iyr'], 2010, 2020)} && #{validate_year(v['eyr'], 2020, 2030)} && #{validate_hgt(v['hgt'])} && #{validate_hcl(v['hcl'])} && #{validate_ecl(v['ecl'])} && #{validate_pid(v['pid'])}\n"
 
     count += 1 if validate_year(v['byr'], 1920, 2002) &&
                   validate_year(v['iyr'], 2010, 2020) &&
