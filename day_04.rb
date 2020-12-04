@@ -2,9 +2,6 @@
 
 require './utils'
 
-$passport_values = %w[byr iyr eyr hgt hcl ecl pid cid]
-$eye_color = %w[amb blu brn gry grn hzl oth]
-
 def input_file(index = 0, result = [])
   input = get_file('inputs/input_day_04.txt')
   input.each do |line|
@@ -20,11 +17,7 @@ def input_file(index = 0, result = [])
 end
 
 def validate_year(value, lower, higher)
-  !!(value =~ /^[0-9]{4}$/) && value.to_i >= lower && value.to_i <= higher
-end
-
-def validate_eyr(value)
-  value.length == 4 && value.to_i >= 2020 && value.to_i <= 2030
+  match_regex?(value, /^[0-9]{4}$/) && value.to_i >= lower && value.to_i <= higher
 end
 
 def validate_hgt(value)
@@ -38,37 +31,37 @@ def validate_hgt(value)
 end
 
 def validate_hcl(value)
-  !!(value =~ /^#[a-f0-9]{6}$/)
+  match_regex?(value, /^#[a-f0-9]{6}$/)
 end
 
 def validate_ecl(value)
-  $eye_color.include?(value)
+  %w[amb blu brn gry grn hzl oth].include?(value)
 end
 
 def validate_pid(value)
-  !!(value =~ /^[0-9]{9}$/)
+  match_regex?(value, /^[0-9]{9}$/)
+end
+
+def valid(value)
+  validate_year(value['byr'], 1920, 2002) && validate_year(value['iyr'], 2010, 2020) &&
+    validate_year(value['eyr'], 2020, 2030) && validate_hgt(value['hgt']) && validate_hcl(value['hcl']) &&
+    validate_ecl(value['ecl']) && validate_pid(value['pid'])
 end
 
 def part_one(input, ignore = nil)
-  values = $passport_values - ignore
+  values = %w[byr iyr eyr hgt hcl ecl pid cid] - ignore
   count = 0
   input.each { |v| count += (values - v.keys).empty? ? 1 : 0 }
   count
 end
 
 def part_two(input, ignore = nil)
-  values = $passport_values - ignore
+  values = %w[byr iyr eyr hgt hcl ecl pid cid] - ignore
   count = 0
   input.each do |v|
     next unless (values - v.keys).empty?
 
-    count += 1 if validate_year(v['byr'], 1920, 2002) &&
-                  validate_year(v['iyr'], 2010, 2020) &&
-                  validate_year(v['eyr'], 2020, 2030) &&
-                  validate_hgt(v['hgt']) &&
-                  validate_hcl(v['hcl']) &&
-                  validate_ecl(v['ecl']) &&
-                  validate_pid(v['pid'])
+    count += 1 if valid v
   end
   count
 end

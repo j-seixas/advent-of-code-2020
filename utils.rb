@@ -7,3 +7,7 @@ def get_file(filename)
     content
   end
 end
+
+def match_regex?(input, expression)
+  !!(input =~ expression)
+end
