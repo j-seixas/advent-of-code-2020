@@ -19,6 +19,14 @@ def part_one(input, max = 0)
   max
 end
 
+def part_two(input)
+  seats = input.map { |v| v[:row] * 8 + v[:seat] }
+  seats.each do |v|
+    return v + 1 if !seats.include?(v + 1) && seats.include?(v + 2)
+    return v - 1 if !seats.include?(v - 1) && seats.include?(v - 2)
+  end
+end
+
 boarding_passes = input_file
 puts "Day 5 - Part 1 --> Highest: #{part_one(boarding_passes)}"
-#puts "Day 5 - Part 2 --> Trees multiplied: #{part_two(input, [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]])}"
+puts "Day 5 - Part 2 --> Seat ID: #{part_two(boarding_passes)}"
