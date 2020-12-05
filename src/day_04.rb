@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './utils'
+require './utils/utils'
 
 def input_file(index = 0, result = [])
   input = get_file('inputs/input_day_04.txt')

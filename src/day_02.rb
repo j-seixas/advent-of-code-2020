@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './utils'
+require './utils/utils'
 
 def input_file
   get_file('inputs/input_day_02.txt').map do |policy|
