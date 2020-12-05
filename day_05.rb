@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+require './utils'
+
+def input_file
+  get_file('inputs/input_day_05.txt').map do |seat|
+    {
+      row: seat[0..7].gsub('B', '1').gsub('F', '0').to_i(2),
+      seat: seat[7..-1].gsub('R', '1').gsub('L', '0').to_i(2)
+    }
+  end
+end
+
+def part_one(input, max = 0)
+  input.each do |v|
+    id = v[:row] * 8 + v[:seat]
+    max = id if id > max
+  end
+  max
+end
+
+boarding_passes = input_file
+puts "Day 5 - Part 1 --> Highest: #{part_one(boarding_passes)}"
+#puts "Day 5 - Part 2 --> Trees multiplied: #{part_two(input, [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]])}"
