@@ -31,6 +31,15 @@ def part_one(input, bag_name)
   get_set_bags(input, bag_name).size
 end
 
+def part_two(input, bag_name)
+  count = 0
+  bag = input.select { |hash| hash.values.include?(bag_name) }[0]
+  bag.except(:name).each do |k, v|
+    count += v.to_i + v.to_i * part_two(input, k)
+  end
+  count
+end
+
 bags = input_file
 puts "Day 7 - Part 1 --> Bag colors: #{part_one(bags, 'shiny gold')}"
-# puts "Day 7 - Part 2 --> Bags: #{part_two(bags)}"
+puts "Day 7 - Part 2 --> Bags: #{part_two(bags, 'shiny gold')}"
