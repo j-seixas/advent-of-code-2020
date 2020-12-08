@@ -17,15 +17,16 @@ def deep_copy(array)
   array.map(&:dup)
 end
 
-def part_two(input)
+def part_two(input, value1, value2)
   input.each_with_index do |line, i|
-    next unless line[:name] == 'nop' || line[:name] == 'jmp'
+    next unless [value1, value2].include?(line[:name])
 
     tmp_input = deep_copy(input)
-    if line[:name] == 'nop'
-      tmp_input[i][:name] = 'jmp'
-    elsif line[:name] == 'jmp'
-      tmp_input[i][:name] = 'nop'
+    case line[:name]
+    when value1
+      tmp_input[i][:name] = value2
+    when value2
+      tmp_input[i][:name] = value1
     end
 
     finished, count = part_one(tmp_input)
@@ -55,4 +56,4 @@ end
 
 instructions = input_file
 puts "Day 8 - Part 1 --> Accumulator: #{part_one(deep_copy(instructions))[1]}"
-puts "Day 8 - Part 2 --> Accumulator: #{part_two(deep_copy(instructions))}"
+puts "Day 8 - Part 2 --> Accumulator: #{part_two(deep_copy(instructions), 'nop', 'jmp')}"
