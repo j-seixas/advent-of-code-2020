@@ -19,6 +19,7 @@ def part_one(input, preamble_size)
   end
 end
 
+# TODO: improve to subtract to sum and add +1 to start instead of repeating the whole iteration
 def part_two(input, preamble_size)
   value, index = part_one(input, preamble_size)
   return unless index
