@@ -9,10 +9,8 @@ end
 def part_one(input, preamble_size)
   return if input.size <= preamble_size
 
-  input.each_with_index do |value, i|
-    next if i <= preamble_size
-
-    tmp = input[i - preamble_size..i]
+  input[preamble_size..-1].each_with_index do |value, i|
+    tmp = input[i..i + preamble_size]
     found = false
     tmp.each do |v|
       found = true if tmp.include?(value - v)
@@ -27,23 +25,19 @@ def part_two(input, preamble_size)
 
   start = 0
   index_end = 0
-  while start < index
+  while start < index - 1
     sum = 0
     input[start..index - 1].each_with_index do |v, i|
       sum += v
-      if sum == value
-        index_end = start + i
-        break
-      elsif sum > value
-        break
-      end
+      return input[start..start + i].max + input[start..start + i].min if sum == value
+      break if sum > value
     end
     break if index_end != 0
 
     start += 1
   end
 
-  input[start..index_end].max + input[start..index_end].min
+  false
 end
 
 xmas = input_file
