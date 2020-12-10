@@ -5,7 +5,7 @@ require 'active_support/core_ext/hash'
 require 'set'
 
 def input_file
-  input = get_file('inputs/input_day_07.txt')
+  input = get_file('inputs/day_07.txt')
   input.map do |line|
     values = line.split(/ bags contain | bags?[., ]*|no other|(\d) /).reject(&:empty?)
     hash = { name: values[0] }

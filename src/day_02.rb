@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  get_file('inputs/input_day_02.txt').map do |policy|
+  get_file('inputs/day_02.txt').map do |policy|
     splitted = policy.split(' ')
     {
       min: splitted[0].split('-')[0].to_i,

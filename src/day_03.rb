@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  get_file('inputs/input_day_03.txt')
+  get_file('inputs/day_03.txt')
 end
 
 def value_at(input, index)

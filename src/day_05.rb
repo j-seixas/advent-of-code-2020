@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  get_file('inputs/input_day_05.txt').map do |seat|
+  get_file('inputs/day_05.txt').map do |seat|
     {
       row: seat[0..7].gsub('B', '1').gsub('F', '0').to_i(2),
       seat: seat[7..-1].gsub('R', '1').gsub('L', '0').to_i(2)

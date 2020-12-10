@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  get_file('inputs/input_day_09.txt').map(&:to_i)
+  get_file('inputs/day_09.txt').map(&:to_i)
 end
 
 def part_one(input, preamble_size)

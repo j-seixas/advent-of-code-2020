@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file(index = 0, result = [])
-  input = get_file('inputs/input_day_04.txt')
+  input = get_file('inputs/day_04.txt')
   input.each do |line|
     if line.empty?
       index += 1

@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  get_file('inputs/input_day_01.txt').map(&:to_i)
+  get_file('inputs/day_01.txt').map(&:to_i)
 end
 
 def part_one(values, objective)

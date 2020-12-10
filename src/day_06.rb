@@ -4,7 +4,7 @@ require './utils/utils'
 require 'set'
 
 def input_file
-  get_file_unprocessed('inputs/input_day_06.txt').split("\n\n").map do |group|
+  get_file_unprocessed('inputs/day_06.txt').split("\n\n").map do |group|
     tmp = group.split("\n")
     {
       count: tmp.size,

@@ -3,7 +3,7 @@
 require './utils/utils'
 
 def input_file
-  input = get_file('inputs/input_day_08.txt')
+  input = get_file('inputs/day_08.txt')
   input.map do |line|
     values = line.split(/(acc|nop|jmp) (-|\+)(\d+)/).reject(&:empty?)
     {
