@@ -20,20 +20,19 @@ def part_one(input, outlet = 0)
   differences.reject(&:zero?).inject(:*)
 end
 
-def part_two(input, previous = 0)
-  max = input.last + 3
-  count = 0
 
+def part_two(input, previous = 0, cache = {})
+  cache[:max] = input.last + 3 unless cache[:max]
+  count = 0
   input.each_with_index do |value, i|
     break if value > previous + 3
 
-    count += 1 if value + 3 == max
-    break if value + 3 >= max
+    count += 1 if value + 3 == cache[:max]
+    break if value + 3 >= cache[:max]
 
-    count += part_two(input[i + 1..-1], value)
+    cache[value] = part_two(input[i + 1..-1], value, cache) unless cache.key?(value)
+    count += cache[value]
   end
-
-  # puts "#{previous} - #{count}" 
   count
 end
 
