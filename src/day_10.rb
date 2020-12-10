@@ -20,6 +20,23 @@ def part_one(input, outlet = 0)
   differences.reject(&:zero?).inject(:*)
 end
 
+def part_two(input, previous = 0)
+  max = input.last + 3
+  count = 0
+
+  input.each_with_index do |value, i|
+    break if value > previous + 3
+
+    count += 1 if value + 3 == max
+    break if value + 3 >= max
+
+    count += part_two(input[i + 1..-1], value)
+  end
+
+  # puts "#{previous} - #{count}" 
+  count
+end
+
 adapters = input_file
 puts "Day 10 - Part 1 --> Joltage differences multiplied: #{part_one(adapters, 0)}"
-# puts "Day 10 - Part 2 --> Joltage: #{part_two(adapters, 0)}"
+puts "Day 10 - Part 2 --> Joltage: #{part_two(adapters, 0)}"
