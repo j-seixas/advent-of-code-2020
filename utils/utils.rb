@@ -19,3 +19,7 @@ end
 def match_regex?(input, expression)
   !!(input =~ expression)
 end
+
+def deep_copy(array)
+  array.map(&:dup)
+end

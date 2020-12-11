@@ -13,10 +13,6 @@ def input_file
   end
 end
 
-def deep_copy(array)
-  array.map(&:dup)
-end
-
 def part_two(input, value1, value2)
   input.each_with_index do |line, i|
     next unless [value1, value2].include?(line[:name])

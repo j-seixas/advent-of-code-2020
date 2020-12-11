@@ -20,7 +20,6 @@ def part_one(input, outlet = 0)
   differences.reject(&:zero?).inject(:*)
 end
 
-
 def part_two(input, previous = 0, cache = {})
   cache[:max] = input.last + 3 unless cache[:max]
   count = 0
