@@ -16,13 +16,13 @@ end
 def move(direction, position, value)
   case direction
   when 'N'
-    [position[0] + value, position[1]]
-  when 'S'
-    [position[0] - value, position[1]]
-  when 'E'
     [position[0], position[1] + value]
-  when 'W'
+  when 'S'
     [position[0], position[1] - value]
+  when 'E'
+    [position[0] + value, position[1]]
+  when 'W'
+    [position[0] - value, position[1]]
   end
 end
 
@@ -36,9 +36,9 @@ def rotate_waypoint(position, direction, value)
   (90..value).step(90).each do |_|
     case direction
     when 'R'
-      position = [-position[1], position[0]]
-    when 'L'
       position = [position[1], -position[0]]
+    when 'L'
+      position = [-position[1], position[0]]
     end
   end
   position
@@ -58,28 +58,28 @@ def process_instruction(instruction, position, direction)
 end
 
 def part_one(input, direction)
-  north_east = [0, 0]
+  position = [0, 0] # x,y -> east, north
   input.each do |inst|
-    north_east, direction = process_instruction(inst, north_east, direction)
+    position, direction = process_instruction(inst, position, direction)
   end
-  north_east[0].abs + north_east[1].abs
+  position[0].abs + position[1].abs
 end
 
 def part_two(input, waypoint)
-  north_east = [0, 0]
+  position = [0, 0] # x,y -> east, north
   input.each do |inst|
     case inst[:inst]
     when 'F'
-      north_east = [north_east[0] + inst[:value] * waypoint[0], north_east[1] + inst[:value] * waypoint[1]]
+      position = [position[0] + inst[:value] * waypoint[0], position[1] + inst[:value] * waypoint[1]]
     when 'R', 'L'
       waypoint = rotate_waypoint(waypoint, inst[:inst], inst[:value])
     when 'N', 'S', 'E', 'W'
       waypoint = move(inst[:inst], waypoint, inst[:value])
     end
   end
-  north_east[0].abs + north_east[1].abs
+  position[0].abs + position[1].abs
 end
 
 instructions = input_file
 puts "Day 12 - Part 1 --> Distance: #{part_one(instructions, 'E')}"
-puts "Day 12 - Part 2 --> Distance: #{part_two(instructions, [1, 10])}"
+puts "Day 12 - Part 2 --> Distance: #{part_two(instructions, [10, 1])}"
