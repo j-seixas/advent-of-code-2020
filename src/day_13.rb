@@ -27,6 +27,7 @@ def part_one(time, input)
   best_bus * minimum
 end
 
+# brute force not working
 def part_two(input)
   found = false
   cleaned = input.each_with_index.map { |v, i| [v, i] unless v == 'x' }.compact
